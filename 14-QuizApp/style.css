@@ -1,0 +1,20 @@
+.card {
+    color: brown;
+}
+
+#header {
+    font-size: 24px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 700;
+}
+
+.btn-choice {
+    width: 200px;
+    background-color: burlywood;
+    font-size: 14px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 700;
+    border-radius: 12px;
+    border-color: brown;
+    color: brown;
+}
