@@ -20,6 +20,7 @@ Quiz.prototype.getQuestion = function() {
 
 Quiz.prototype.guess = function(answer) {
     var question = this.getQuestion();
+
     if (question.checkAnswer(answer)) {
         this.score++;
     }
@@ -28,44 +29,6 @@ Quiz.prototype.guess = function(answer) {
 
 Quiz.prototype.isFinish = function() {
     return this.questions.length === this.questionIndex;
-}
-
-function guess(id, guess) {
-    var btn = document.getElementById(id);
-    btn.onclick = function() {
-        quiz.guess(guess);
-        loadQuestion();
-    }
-}
-
-function showScore() {
-    var score = `<h2>Score</h2><h4>${quiz.score}</h4>`;
-
-    document.querySelector('.card-body').innerHTML = score;
-}
-
-function showProgress() {
-    var totalQuestions = quiz.questions.length;
-    var questionNumber = quiz.questionIndex + 1;
-    document.querySelector('#progress').innerHTML = 'Question ' + questionNumber + ' of ' + totalQuestions;
-}
-
-function loadQuestion() {
-    if (quiz.isFinish()) {
-        showScore();
-    } else {
-        var question = quiz.getQuestion();
-        var choices = question.choices;
-
-        document.querySelector('#question').textContent = question.text;
-
-        for (var i = 0; i < choices.length; i++) {
-            var item = document.querySelector('#choice' + i);
-            item.innerHTML = choices[i];
-            guess('btn' + i, choices[i]);
-        }
-        showProgress();
-    }
 }
 
 var question1 = new Question('What does HTML stand for?', ['Hyper Text Markup Language', 'Hyperlinks and Text Markup Language', 'Home Tool Markup Language', 'Blank Answer'], 'Hyper Text Markup Language');
@@ -96,7 +59,7 @@ var question13 = new Question('What is the correct syntax for referring to an ex
 
 var question14 = new Question('How do you call a function named "myFunction"?', ['come myFunction()', 'call function myFunction()', 'myFunction()', 'Blank Answer'], 'myFunction()');
 
-var question15 = new Question('How do you write "Hello World" in an alert box?', ['msg("Hello World");', 'alertBox("Hello World");', 'alert("Hello World");', 'Blank Answer'], 'alert("Hello World")');
+var question15 = new Question('How do you write "Hello World" in an alert box?', ['msg("Hello World");', 'alertBox("Hello World");', 'alert("Hello World");', 'Blank Answer'], 'alert("Hello World");');
 
 var questions = [question1, question2, question3, question4, question5, question6, question7, question8, question9, question10, question11, question12, question13, question14, question15];
 
@@ -113,3 +76,45 @@ var questions = [question1, question2, question3, question4, question5, question
 var quiz = new Quiz(questions);
 
 loadQuestion();
+
+function loadQuestion() {
+    if (quiz.isFinish()) {
+        showScore();
+    } else {
+
+        var question = quiz.getQuestion();
+        var choices = question.choices;
+
+        document.querySelector('#question').textContent = question.text;
+
+        for (var i = 0; i < choices.length; i++) {
+            var item = document.querySelector('#choice' + i);
+            item.innerHTML = choices[i];
+            guess('btn' + i, choices[i]);
+        }
+        showProgress();
+    }
+}
+
+function guess(id, guess) {
+    var btn = document.getElementById(id);
+    btn.onclick = function() {
+        quiz.guess(guess);
+        loadQuestion();
+    }
+}
+
+function showScore() {
+    var score = `<h2>Score</h2><h4>${quiz.score}</h4>`;
+
+    document.querySelector('.card-body').innerHTML = score;
+}
+
+function showProgress() {
+    var totalQuestions = quiz.questions.length;
+    var questionNumber = quiz.questionIndex;
+    var html = `Question ${questionNumber+1} of ${totalQuestions}`;
+    if (questionNumber == totalQuestions) {
+        document.querySelector('#progress').innerHTML = html;
+    }
+}
