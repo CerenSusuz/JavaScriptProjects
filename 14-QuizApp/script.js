@@ -111,10 +111,11 @@ function showScore() {
 }
 
 function showProgress() {
-    var totalQuestions = quiz.questions.length;
-    var questionNumber = quiz.questionIndex;
-    var html = `Question ${questionNumber+1} of ${totalQuestions}`;
-    if (questionNumber == totalQuestions) {
+    var totalQuestion = quiz.questions.length;
+    var questionNumber = quiz.questionIndex + 1;
+    var html = 'Question ' + questionNumber + ' of ' + totalQuestion;
+
+    if (questionNumber <= totalQuestion) {
         document.querySelector('#progress').innerHTML = html;
     }
 }
